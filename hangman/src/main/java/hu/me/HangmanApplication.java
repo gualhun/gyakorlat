@@ -14,5 +14,12 @@ public class HangmanApplication {
 		//f
 		
 		//http://localhost:8181/h2-console/
+
+		//postman adat felvitel:
+//		{
+//			"firstName": "John",
+//			"lastName": "Doe"
+//		}
+		
 	}
 }

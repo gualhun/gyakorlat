@@ -72,7 +72,7 @@ public class UserController {
 	}
 	
 	@GetMapping(path = "/getuserfirstnamelikenem", produces=MediaType.APPLICATION_JSON_VALUE)
-	List<UserEntity> getUserFirstNameLikeTom() {
+	List<UserEntity> getUserFirstNameLikeNem() {
 		return userService.getUserFirstNameLikeNem();
 		//http://localhost:8181/user/getuserfirstnamelikenem
 	}

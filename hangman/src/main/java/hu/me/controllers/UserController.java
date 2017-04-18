@@ -1,6 +1,7 @@
 package hu.me.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +27,10 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
 	
+	//valuet az app prop-ba adjuk meg
+	@Value("restricted_username")
+	private String restrictedUsername;
+	
 	private UserService userService;
 	//private UserDao userDao;
 	
@@ -43,7 +48,7 @@ public class UserController {
 	
 	@PostMapping(path = "", consumes=MediaType.APPLICATION_JSON_VALUE)
 	void createNew(@RequestBody UserEntity newUser) {
-		if (newUser.getFirstName().toUpperCase().equals("ADMIN")) {
+		if (newUser.getFirstName().toUpperCase().equals(restrictedUsername.toUpperCase())) {
 			throw new AdminUserNotAllowed();
 		}
 		userService.newUser(newUser);

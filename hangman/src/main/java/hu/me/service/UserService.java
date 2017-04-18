@@ -12,5 +12,8 @@ public interface UserService {
 	Iterable<UserEntity> listAllUser();
 	void newUser(UserEntity newUser);
 	void deleteUser(long id);
+	List<UserEntity>findByLastName(String lastName);
+	List<UserEntity> getUserOrderByFirstNameDesc();
+	List<UserEntity> getUserFirstNameLikeNem();
 
 }

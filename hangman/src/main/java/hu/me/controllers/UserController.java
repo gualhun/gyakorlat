@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hu.me.dao.UserDao;
 import hu.me.entity.UserEntity;
 import hu.me.exception.AdminUserNotAllowed;
 import hu.me.modell.User;
@@ -25,13 +26,15 @@ import java.util.*;
 @RequestMapping("/user")
 public class UserController {
 	
-	private UserService userService;	
+	private UserService userService;
+	//private UserDao userDao;
 	
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, UserDao userDao) {
+		super();
 		this.userService = userService;
+		//this.userDao = userDao;
 	}
-
 
 	@GetMapping(path = "", produces=MediaType.APPLICATION_JSON_VALUE)
 	Iterable<UserEntity> list() {
@@ -55,6 +58,28 @@ public class UserController {
 	void updateExisting(@PathVariable("id")long id, @RequestBody UserEntity newUser) {
 		//userService.updateUser(id);
 	}
+	
+	@GetMapping(path = "byLastName/{lastName}")
+	Iterable<UserEntity> findByLastName(@PathVariable("lastName") String lastName) {
+		return userService.findByLastName(lastName);
+		//http://localhost:8181/user/byLastName/Doe
+	}
+	
+	@GetMapping(path = "/orderbyname", produces=MediaType.APPLICATION_JSON_VALUE)
+	List<UserEntity> getUserOrderByFirtsNameDesc() {
+		return userService.getUserOrderByFirstNameDesc();
+		//http://localhost:8181/user/orderbyname
+	}
+	
+	@GetMapping(path = "/getuserfirstnamelikenem", produces=MediaType.APPLICATION_JSON_VALUE)
+	List<UserEntity> getUserFirstNameLikeTom() {
+		return userService.getUserFirstNameLikeNem();
+		//http://localhost:8181/user/getuserfirstnamelikenem
+	}
+	
+	
+	
+	
 //	@PutMapping(path="/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
 //	void updateExisting(@PathVariable("id")long id, @RequestBody User newUser) {
 //		//userService.updateUser(id);
